@@ -1,0 +1,17 @@
+.button_type_edite-avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: rgba(0, 0, 0);
+  background:  rgba(0, 0, 0) url('../../../images/editAvatar.svg') center center no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease, background-color 1s ease;
+}
+
+.button_type_edite-avatar:hover {
+  opacity: 0.8;
+  transition: opacity 0.6s ease, background-color 0.6s ease;
+}

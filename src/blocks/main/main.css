@@ -1,0 +1,10 @@
+.main{
+    padding-top: 40px;
+    flex: 1 0 auto;
+}
+
+@media (max-width:450px){
+    .main{
+        padding-top: 42px;
+    }
+}

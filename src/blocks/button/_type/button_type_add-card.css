@@ -1,0 +1,13 @@
+.button_type_add-card{
+    background: #000 url(../../../images/add.svg) center center no-repeat;
+    width: 150px;
+    height: 50px;
+    border: 2px solid #fff;
+}
+
+@media (max-width:768px){
+    .button_type_add-card{
+        width: 100%;
+        margin-top: 32px;
+    }
+}

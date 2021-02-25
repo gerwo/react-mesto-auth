@@ -1,0 +1,23 @@
+.footer{
+    padding: 66px 0 60px;
+    flex: 0 0 auto;
+}
+
+@media(max-width:920px) and (min-width:882px){
+    .footer{
+        padding-left: calc((100vw - 882px)/(920 - 882) * (0 - 19) + 19px);
+        padding-right: calc((100vw - 882px)/(920 - 882) * (0 - 19) + 19px);
+    }
+}
+
+@media (max-width:882px){
+    .footer{
+        padding: 66px 19px 60px;
+    }
+}
+
+@media (max-width:450px){
+    .footer{
+        padding: 48px 19px 36px;
+    }
+}

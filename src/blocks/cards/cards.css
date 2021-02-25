@@ -1,0 +1,28 @@
+.cards{
+    padding-top: 51px;
+}
+
+@media(max-width:920px) and (min-width:882px){
+    .cards{
+        padding-left: calc((100vw - 882px)/(920 - 882) * (0 - 19) + 19px);
+        padding-right: calc((100vw - 882px)/(920 - 882) * (0 - 19) + 19px);
+    }
+}
+
+@media (max-width:882px){
+    .cards{
+        padding: 51px 19px 0;
+    }
+}
+
+@media (max-width:768px){
+    .cards{
+        padding: 36px 19px 0;
+    }
+}
+
+@media (max-width:425px){
+    .cards{
+        padding: 51px 19px 0;
+    }
+}

@@ -1,0 +1,26 @@
+.header{
+    padding-top: 45px;
+    min-height: 74px;
+    border-bottom: 1px solid #545454;
+    flex: 0 0 auto;
+}
+
+@media(max-width:920px) and (min-width:882px){
+    .header{
+        padding-left: calc((100vw - 882px)/(920 - 882) * (0 - 19) + 19px);
+        padding-right: calc((100vw - 882px)/(920 - 882) * (0 - 19) + 19px);
+    }
+}
+
+@media (max-width:882px){
+    .header{
+        padding: 45px 19px 0;
+    }
+}
+
+@media (max-width:450px){
+    .header{
+        padding: 28px 19px 0;
+        min-height: 56px;
+    }
+}

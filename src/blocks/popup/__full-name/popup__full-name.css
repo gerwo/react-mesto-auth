@@ -1,0 +1,18 @@
+.popup__full-name{
+    width: 100%;
+    height: 28px;
+    box-sizing: border-box;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    margin-top: 47px;
+    padding-bottom: 7px;
+}
+
+@media (max-width:520px){
+    .popup__full-name{
+        margin-top: 73px;
+    }
+}

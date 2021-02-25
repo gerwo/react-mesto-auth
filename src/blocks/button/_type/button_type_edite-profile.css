@@ -1,0 +1,18 @@
+.button_type_edite-profile{
+    background: #000 url(../../../images/edit.svg) center center no-repeat;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #fff;
+    margin-left: 16px;
+    align-self: end;
+    position: relative;
+    bottom: 12px;
+}
+
+@media (max-width:768px){
+    .button_type_edite-profile{
+        width: 18px;
+        height: 18px;
+        bottom: 18px;
+    }
+}

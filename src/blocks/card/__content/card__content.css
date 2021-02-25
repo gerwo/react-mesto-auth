@@ -1,0 +1,6 @@
+.card__content{
+    display: grid;
+    grid-template: 1fr / 1fr 21px;
+    padding: 21px 21px 25px;
+    align-items: center;
+}
