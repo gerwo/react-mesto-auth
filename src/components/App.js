@@ -1,4 +1,6 @@
 import React from 'react';
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
 import Header from "./Header";
 import Login from "./Login";
 import Register from "./Register";
@@ -23,6 +25,8 @@ function App() {
   const [isLoading, setLoading] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [cards, setCards] = React.useState([]);
+
+  const [isLoggedIn, loggedInSet] = React.useState(false);
 
   const [currentUser, setCurrentUser] = React.useState(CurrentUserContext);
 
@@ -152,15 +156,46 @@ function App() {
       <div className="body">
         <div className="root">
           <Header/>
-          <Main 
-            onEditProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onConfirmClick={handleCardConfirmDelete}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            cards={cards}
-          />
+          <Switch>
+            <ProtectedRoute
+              exact path='/'
+              isLoggedIn={isLoggedIn}
+              component={Main}
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onConfirmClick={handleCardConfirmDelete}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              cards={cards}
+            />
+            <Route path="/signin">
+              {
+                isLoggedIn
+                ? <Redirect to="/" />
+                : <Login
+                    isLoading={isLoading}
+                    onSubmit={handleLogin}
+                    setHeaderNavlinkData={setHeaderNavlinkData}
+                  />
+              }
+            </Route>
+
+            <Route path="/signup">
+              {
+                isLoggedIn
+                ? <Redirect to="/" />
+                : <Register
+                    isLoading={isLoading}
+                    onSubmit={handleRegister}
+                    setHeaderNavlinkData={setHeaderNavlinkData}
+                  />
+              }
+            </Route>
+            <Route path="*">
+              <Redirect to="/" />
+            </Route>
+          </Switch>        
           <Footer/>
         </div>
         
