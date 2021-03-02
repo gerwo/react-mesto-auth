@@ -39,6 +39,7 @@ function EditProfilePopup(props) {
       name="profile" 
       isOpen={props.isOpen} 
       onClose={props.onClose}
+      onLayout={props.onLayout}
       isLoading={props.isLoading}
       onSubmit={handleSubmit}
       loadingButtonTitle = 'Сохранение...'>

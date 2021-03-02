@@ -24,6 +24,7 @@ function EditAvatarPopup(props){
       name="avatar" 
       isOpen={props.isOpen} 
       onClose={props.onClose}
+      onLayout={props.onLayout}
       isLoading={props.isLoading}
       onSubmit={handleSubmit}
       loadingButtonTitle = 'Сохранение...'

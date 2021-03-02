@@ -63,6 +63,12 @@ function App() {
     if(key === 'Escape') closeAllPopups()
   }
 
+  function handleLayoutClick(popup) {
+    popup.addEventListener('mousedown', evt => {
+      evt.target === evt.currentTarget && closeAllPopups();
+    });
+  }
+
   function closeAllPopups() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
@@ -158,15 +164,39 @@ function App() {
           <Footer/>
         </div>
         
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} isLoading={isLoading}/>
+        <AddPlacePopup 
+          isOpen={isAddPlacePopupOpen} 
+          onClose={closeAllPopups} 
+          onLayout={handleLayoutClick}
+          onAddPlace={handleAddPlaceSubmit} 
+          isLoading={isLoading}/>
 
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} isLoading={isLoading}/> 
+        <EditAvatarPopup 
+          isOpen={isEditAvatarPopupOpen} 
+          onClose={closeAllPopups} 
+          onLayout={handleLayoutClick}
+          onUpdateAvatar={handleUpdateAvatar} 
+          isLoading={isLoading}/> 
         
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} isLoading={isLoading}/> 
+        <EditProfilePopup 
+          isOpen={isEditProfilePopupOpen} 
+          onClose={closeAllPopups} 
+          onLayout={handleLayoutClick}
+          onUpdateUser={handleUpdateUser} 
+          isLoading={isLoading}/> 
 
-        <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups}/>
+        <ImagePopup 
+          card={selectedCard} 
+          isOpen={isImagePopupOpen} 
+          onClose={closeAllPopups}
+          onLayout={handleLayoutClick}/>
 
-        <ConfirmPopup isOpen={isConfirmPopupOpen} onClose={closeAllPopups} onConfirm={handleCardDelete} isLoading={isLoading}/>
+        <ConfirmPopup 
+          isOpen={isConfirmPopupOpen} 
+          onClose={closeAllPopups}
+          onLayout={handleLayoutClick} 
+          onConfirm={handleCardDelete} 
+          isLoading={isLoading}/>
 
       </div>
     </CurrentUserContext.Provider>

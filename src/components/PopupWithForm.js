@@ -1,6 +1,6 @@
 function PopupWithForm(props) {
   return (
-    <div className={`popup popup__${props.name} ${props.isOpen && 'popup_opened'}`} role="dialog" >
+    <div className={`popup popup__${props.name} ${props.isOpen && 'popup_opened'}`} role="dialog" onClick={props.onLayout}>
       <div className="popup__container">
       <button className="button button_type_close opacity" aria-label="Закрыть" type="button" onClick={props.onClose}></button>
         <h2 className="popup__title">{props.title}</h2>

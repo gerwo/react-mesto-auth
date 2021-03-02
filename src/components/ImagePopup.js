@@ -3,7 +3,7 @@ function ImagePopup(props) {
   
   
   return (
-    <div className={`popup popup_image ${props.isOpen ? 'popup_opened' : ''}`}  role="dialog">
+    <div className={`popup popup_image ${props.isOpen ? 'popup_opened' : ''}`}  role="dialog" onClick={props.onLayout}>
       <div className="popup__image-container">
         <button className="button button_type_close opacity" aria-label="Закрыть" type="button" onClick={props.onClose}></button>
         <img className="popup__image" alt={`Изображение ${card.name}`} src={card.link}/>

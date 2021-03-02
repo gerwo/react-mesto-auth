@@ -33,6 +33,7 @@ function AddPlacePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       isLoading={props.isLoading}
+      onLayout={props.onLayout}
       onSubmit= {handleSubmit}
       loadingButtonTitle = 'Сохранение...'>
       <input 
