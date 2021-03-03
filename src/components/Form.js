@@ -7,17 +7,15 @@ function Form(props) {
 
   function handleEmailChange(evt){
     setEmail(evt.target.value);
-    console.log(email);
   }
 
   function handlePasswordChange(evt){
     setPassword(evt.target.value);
-    console.log(password);
   }
 
   function handleSubmit(evt){
     evt.preventDefault();
-    props.onSubmit({email, password})
+    props.onSubmit({email, password});
   }
 
 
