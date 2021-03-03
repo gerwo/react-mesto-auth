@@ -1,8 +1,16 @@
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import Form from './Form';
 
 function Register(props){
+
+  useEffect(() => {
+    props.setHeaderNavLinkData('/signin', 'Войти');
+
+    return () => {
+      props.setHeaderNavLinkData('/', '');
+    }
+  }, [props]);
 
   return (
     <div className="register">

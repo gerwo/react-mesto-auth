@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Card from "./Card";
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
@@ -6,33 +6,41 @@ function Main(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
+  useEffect(() => {
+    props.setHeaderNavLinkData('/sign-in', 'Выйти');
+
+    return () => {
+      props.setHeaderNavLinkData('/', '');
+    }
+  });
+
   return (
     <>
       <section className="profile">
         <div className="profile__avatar-block">
           <img src={currentUser.avatar} className="profile__avatar" alt="Аватар"/>
-          <button 
-            className="button button_type_edite-avatar opacity" 
-            aria-label="Редактировать" 
-            type="button" 
-            onClick={props.onEditAvatar}></button>
+          <button
+            className="button button_type_edite-avatar opacity"
+            aria-label="Редактировать"
+            type="button"
+            onClick={props.onEditAvatar}/>
         </div>
         <div className="profile__info">
           <div className="profile__full-name-wraper">
             <h1 className="profile__full-name">{currentUser.name}</h1>
-            <button 
-              className="button button_type_edite-profile opacity" 
-              aria-label="Редактировать" 
-              type="button" 
-              onClick={props.onEditProfile}></button>
+            <button
+              className="button button_type_edite-profile opacity"
+              aria-label="Редактировать"
+              type="button"
+              onClick={props.onEditProfile}/>
           </div>
           <p className="profile__occupation">{currentUser.about}</p>
         </div>
-        <button 
-          className="button button_type_add-card opacity" 
-          aria-label="Добавить карточку" 
-          type="button" 
-          onClick={props.onAddPlace}></button>
+        <button
+          className="button button_type_add-card opacity"
+          aria-label="Добавить карточку"
+          type="button"
+          onClick={props.onAddPlace}/>
       </section>
       <section className="cards">
         <ul className="cards__block">

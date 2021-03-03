@@ -40,11 +40,15 @@ function App() {
 
   const [headerUserLogin, setHeaderUserLogin] = useState('');
 
-
+  const [isNavLinkData, setNavLinkData] = useState({text: '', path: ''});
   const [isInfoTooltipData, setInfoTooltipData] = useState({message : '', image : ''});
 
   const [currentUser, setCurrentUser] = React.useState(CurrentUserContext);
 
+
+  function setHeaderNavlinkData(path, text) {
+    setNavLinkData({text, path});
+  }
 
   function handleLogin({email, password}){
     setLoading(true);
@@ -263,13 +267,20 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="body">
         <div className="root">
-          <Header/>
+          <Header
+            isLoggedIn={isLoggedIn}
+            userLogin={headerUserLogin}
+            onSignOut={handleSignOut}
+            navlinkText={isNavLinkData.text}
+            navlinkPath={isNavLinkData.path}
+          />
           <main className="main">
             <Switch>
               <ProtectedRoute
                 exact
                 path='/'
                 isLoggedIn={isLoggedIn}
+                setHeaderNavLinkData = {setHeaderNavLinkData}
                 component={Main}
                 onEditProfile={handleEditProfileClick}
                 onEditAvatar={handleEditAvatarClick}
@@ -283,7 +294,9 @@ function App() {
                 {
                   isLoggedIn
                   ? <Redirect to="/" />
-                  : <Login isLoading={isLoading} onSubmit={handleLogin}
+                  : <Login isLoading={isLoading}
+                           onSubmit={handleLogin}
+                           setHeaderNavLinkData = {setHeaderNavLinkData}
                     />
                 }
               </Route>
@@ -295,6 +308,7 @@ function App() {
                   : <Register
                       isLoading={isLoading}
                       onSubmit={handleRegister}
+                      setHeaderNavLinkData = {setHeaderNavLinkData}
                     />
                 }
               </Route>
