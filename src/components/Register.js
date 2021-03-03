@@ -1,32 +1,40 @@
 
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 function Register(props){
 
-  const [image, setImage] = useState('');
-  const [title, setTitle] = useState('');
-
-  useEffect(() => {
-    setImage(props.image);
-    setTitle(props.title);
-
-    return () => {
-      document.removeEventListener('keyup', props.onEscape);
-
-      setImage('');
-      setTitle('');
-    };
-  }, [props]);
+  function handleSubmit(evt){
+    evt.preventDefault();
+  }
 
   return (
-    <div className={`popup popup__info ${props.isOpen && 'popup_opened'}`} role="dialog" >
-      <div className="popup__container">
-        <button className="button button_type_close opacity" aria-label="Закрыть" type="button" onClick={props.onClose}></button>
-        <form name={props.name} className="popup__form">
-          <img src={image} alt="Результат запроса" className="popup__tooltip-image"/>
-          <h2 className="popup__title popup__title_tooltip">{title}</h2>
-        </form>
-      </div>
+    <div className="register">
+      <h2 className="form__title">{props.title}</h2>
+      <form name={props.name} className="form" onSubmit={handleSubmit}>        
+        <input 
+          name="email-input" 
+          type="email" 
+          className="form__input form__input_type_email" 
+          placeholder="Email" 
+          required 
+          autoComplete="email" 
+          maxLength="50" />
+        <span className="form__input-error" id="email-input-error" />
+        
+        <input 
+          name="password-input" 
+          type="password" 
+          className="form__input form__input_type_password" 
+          placeholder="Пароль" 
+          required 
+          autoComplete="password" 
+          minLength="8" 
+          maxLength="100" 
+          readOnly />
+        <span className="form__input-error" id="password-input-error" />
+        
+        <button type="submit" className="form__submit-button"></button>
+      </form>
     </div>
   );
 }

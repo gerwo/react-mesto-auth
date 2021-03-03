@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { Switch, Route, Redirect} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Header from "./Header";
 import Login from "./Login";
@@ -15,6 +15,9 @@ import api from "../utils/api.js";
 import useEventListener from '@use-it/event-listener';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
+//import infoTooltipDoneImage from '../images/done-query.svg';
+//import infoTooltipErrorImage from '../images/error-query.svg';
+
 function App() { 
 
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
@@ -26,7 +29,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
-  const [isLoggedIn, loggedInSet] = React.useState(false);
+  const [isLoggedIn, setLoggedIn] = React.useState(false);
 
   const [currentUser, setCurrentUser] = React.useState(CurrentUserContext);
 
@@ -36,6 +39,14 @@ function App() {
         setCurrentUser(data);
       });
   }, [])
+
+  function handleLogin(){
+
+  }
+
+  function handleRegister(){
+    
+  }
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true)
@@ -158,7 +169,7 @@ function App() {
           <Header/>
           <Switch>
             <ProtectedRoute
-              exact path='/'
+              path='/'
               isLoggedIn={isLoggedIn}
               component={Main}
               onEditProfile={handleEditProfileClick}
@@ -169,26 +180,24 @@ function App() {
               onCardLike={handleCardLike}
               cards={cards}
             />
-            <Route path="/signin">
+            <Route path="/sign-in">
               {
                 isLoggedIn
                 ? <Redirect to="/" />
                 : <Login
                     isLoading={isLoading}
                     onSubmit={handleLogin}
-                    setHeaderNavlinkData={setHeaderNavlinkData}
                   />
               }
             </Route>
 
-            <Route path="/signup">
+            <Route path="/sign-up">
               {
                 isLoggedIn
                 ? <Redirect to="/" />
                 : <Register
                     isLoading={isLoading}
                     onSubmit={handleRegister}
-                    setHeaderNavlinkData={setHeaderNavlinkData}
                   />
               }
             </Route>

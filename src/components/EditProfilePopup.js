@@ -43,6 +43,7 @@ function EditProfilePopup(props) {
       isLoading={props.isLoading}
       onSubmit={handleSubmit}
       loadingButtonTitle = 'Сохранение...'>
+      
       <input 
         type="text" 
         className="popup__input popup__input_full-name" 
@@ -55,6 +56,7 @@ function EditProfilePopup(props) {
         value={name}
         onChange={handleChangeName}/>
       <span id="full-name-error" className="popup__error"></span>
+      
       <input 
         type="text" 
         className="popup__input popup__input_occupation" 
