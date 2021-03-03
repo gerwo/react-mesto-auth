@@ -10,16 +10,22 @@ function Form(props) {
     console.log(email);
   }
 
-  function handlePassw0rdChange(evt){
+  function handlePasswordChange(evt){
     setPassword(evt.target.value);
-    console.log(email);
+    console.log(password);
   }
 
+  function handleSubmit(){
+    props.onSubmit({email, password})
+  }
+
+
   return (
-      <form onSubmit={props.onSubmit} name={props.name} className="form">
+      <form onSubmit={handleSubmit} name={props.name} className="form">
         <h2 className="form__title">{props.title}</h2>
         <input 
           value = {email}
+          onChange = {handleEmailChange}
           name="email-input" 
           type="email" 
           className="form__input form__input_type_email" 
@@ -31,6 +37,7 @@ function Form(props) {
           
         <input 
           value = {password}
+          onChange = {handlePasswordChange}
           name="password-input" 
           type="password" 
           className="form__input form__input_type_password" 
@@ -38,9 +45,9 @@ function Form(props) {
           required 
           autoComplete="password" 
           minLength="8" 
-          maxLength="100" 
-          readOnly />
+          maxLength="100"/>
         <span className="form__input-error" id="password-input-error" />
+        
         <button type="submit" className="">{props.isLoading ? props.loadingButtonTitle : props.buttonTitle}</button>
       </form>
   )

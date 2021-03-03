@@ -12,7 +12,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmPopup from './ConfirmPopup';
 import api from "../utils/api";
-import auth from "../utils/auth"
+import {registration} from "../utils/auth"
 import useEventListener from '@use-it/event-listener';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
@@ -41,8 +41,8 @@ function App() {
       });
   }, [])
 
-  function handleLogin(){
-
+  function handleLogin({email, password}){
+    registration({email, password});
   }
 
   function handleRegister(){
