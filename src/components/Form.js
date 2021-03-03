@@ -11,11 +11,13 @@ function Form(props) {
   }
 
   function handlePasswordChange(evt){
+    
     setPassword(evt.target.value);
     console.log(password);
   }
 
-  function handleSubmit(){
+  function handleSubmit(evt){
+    evt.preventDefault();
     props.onSubmit({email, password})
   }
 

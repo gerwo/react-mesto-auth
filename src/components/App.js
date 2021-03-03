@@ -42,11 +42,11 @@ function App() {
   }, [])
 
   function handleLogin({email, password}){
-    registration({email, password});
+
   }
 
-  function handleRegister(){
-    
+  function handleRegister({email, password}){
+    registration({email, password});
   }
 
   function handleEditAvatarClick() {

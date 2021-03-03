@@ -21,6 +21,16 @@ export function registration({ email, password }){
       })
 }
 
-export function login(){
-  
+export function login({email, password}){
+  return fetch(`${BASE_URL}/signin`, {
+    method : 'POST',
+    headers : {
+      "Content-Type": "application/json"
+    },
+    body : JSON.stringify({
+      "password": email,
+      "email": password
+    })
+    .then(result => getResponseData({result}))
+  })
 }
