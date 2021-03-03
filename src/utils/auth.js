@@ -9,28 +9,20 @@ export const headers = {
 
 export function registration({ email, password }){
   return fetch(`${BASE_URL}/signup`, {
-        method : 'POST',
-        headers : {
-          "Content-Type": "application/json"
-        },
-        body : JSON.stringify({
-          "password": email,
-          "email": password
-        })
-        .then(result => getResponseData({result}))
+      method : 'POST',
+      headers,
+      body : JSON.stringify({
+        email, password
       })
+  }).then(result => getResponseData(result));
 }
 
 export function login({email, password}){
   return fetch(`${BASE_URL}/signin`, {
-    method : 'POST',
-    headers : {
-      "Content-Type": "application/json"
-    },
-    body : JSON.stringify({
-      "password": email,
-      "email": password
-    })
-    .then(result => getResponseData({result}))
-  })
+      method : 'POST',
+      headers,
+      body : JSON.stringify({
+        email, password
+      })
+  }).then(result => getResponseData(result));
 }

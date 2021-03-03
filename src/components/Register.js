@@ -5,7 +5,6 @@ import Form from './Form';
 function Register(props){
 
   return (
-
     <div className="register">
       <Form
         name="registration"

@@ -12,7 +12,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmPopup from './ConfirmPopup';
 import api from "../utils/api";
-import {registration} from "../utils/auth"
+import * as auth from "../utils/auth"
 import useEventListener from '@use-it/event-listener';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
@@ -26,11 +26,13 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setImagePopup] = React.useState(false);
   const [isConfirmPopupOpen, setConfirmPopup] = React.useState(false);
-  const [isLoading, setLoading] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
   const [isLoggedIn, setLoggedIn] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
+
+  const [isMessage, setMessage] = React.useState(false);
 
   const [currentUser, setCurrentUser] = React.useState(CurrentUserContext);
 
@@ -42,11 +44,37 @@ function App() {
   }, [])
 
   function handleLogin({email, password}){
+    setLoading(true);
 
+    auth.login({
+      email, password
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch(() => {
+
+      })
+      .finally(() => {
+
+      })
   }
 
   function handleRegister({email, password}){
-    registration({email, password});
+    setLoading(true);
+
+    auth.registration({
+        email, password
+      })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch(() => {
+
+      })
+      .finally(() => {
+
+      })
   }
 
   function handleEditAvatarClick() {

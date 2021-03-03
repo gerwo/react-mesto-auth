@@ -11,7 +11,6 @@ function Form(props) {
   }
 
   function handlePasswordChange(evt){
-    
     setPassword(evt.target.value);
     console.log(password);
   }
