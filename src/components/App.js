@@ -38,17 +38,13 @@ function App() {
   const [isLoading, setLoading] = useState(false);
 
 
+  const [headerUserLogin, setHeaderUserLogin] = useState('');
+
 
   const [isInfoTooltipData, setInfoTooltipData] = useState({message : '', image : ''});
 
   const [currentUser, setCurrentUser] = React.useState(CurrentUserContext);
 
-  useEffect( () => {
-    Promise.resolve(api.getUserInfo())
-      .then((data) => {
-        setCurrentUser(data);
-      });
-  }, [])
 
   function handleLogin({email, password}){
     setLoading(true);
@@ -61,6 +57,8 @@ function App() {
         if(res.token){
           localStorage.setItem('email', email);
           localStorage.setItem('token', res.token);
+
+          setHeaderUserLogin(email);
 
           setLoggedIn(true);
         }
@@ -93,6 +91,12 @@ function App() {
       .finally(() => {
         setLoading(false);
       })
+  }
+
+  function handleSignOut() {
+    localStorage.removeItem('token');
+    setLoggedIn(false);
+    setHeaderUserLogin('');
   }
   
   
@@ -145,7 +149,6 @@ function App() {
 
   function handleLayoutClick(popup) {
     popup.addEventListener('mousedown', evt => {
-      debugger;
       evt.target === evt.currentTarget && closeAllPopups();
     });
   }
@@ -164,7 +167,19 @@ function App() {
     }, 700)
   }
 
-  React.useEffect(() => {
+  useEffect( () => {
+    Promise.resolve(api.getUserInfo())
+      .then((data) => {
+        setCurrentUser(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    checkTokenInStorage();
+    setHeaderUserLogin(localStorage.getItem('mail'))
+  }, [])
+
+  useEffect(() => {
     api.getCards()
       .then((data) => {
         setCards(data);
@@ -180,6 +195,21 @@ function App() {
         setCards([newCard, ...cards]);
         closeAllPopups()
     }).catch(error => console.log(error));
+  }
+
+  function checkTokenInStorage(){
+
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+
+      auth.checkUserToken(token)
+        .then(() => {
+          setLoggedIn(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   function handleCardDelete() {
@@ -234,43 +264,45 @@ function App() {
       <div className="body">
         <div className="root">
           <Header/>
-          <Switch>
-            <ProtectedRoute
-              exact
-              path='/'
-              isLoggedIn={isLoggedIn}
-              component={Main}
-              onEditProfile={handleEditProfileClick}
-              onEditAvatar={handleEditAvatarClick}
-              onConfirmClick={handleCardConfirmDelete}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              onCardLike={handleCardLike}
-              cards={cards}
-            />
-            <Route path="/sign-in">
-              {
-                isLoggedIn
-                ? <Redirect to="/" />
-                : <Login isLoading={isLoading} onSubmit={handleLogin}
-                  />
-              }
-            </Route>
+          <main className="main">
+            <Switch>
+              <ProtectedRoute
+                exact
+                path='/'
+                isLoggedIn={isLoggedIn}
+                component={Main}
+                onEditProfile={handleEditProfileClick}
+                onEditAvatar={handleEditAvatarClick}
+                onConfirmClick={handleCardConfirmDelete}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                cards={cards}
+              />
+              <Route path="/sign-in">
+                {
+                  isLoggedIn
+                  ? <Redirect to="/" />
+                  : <Login isLoading={isLoading} onSubmit={handleLogin}
+                    />
+                }
+              </Route>
 
-            <Route path="/sign-up">
-              {
-                isLoggedIn
-                ? <Redirect to="/" />
-                : <Register
-                    isLoading={isLoading}
-                    onSubmit={handleRegister}
-                  />
-              }
-            </Route>
-            <Route path="*">
-              <Redirect to="/" />
-            </Route>
-          </Switch>        
+              <Route path="/sign-up">
+                {
+                  isLoggedIn
+                  ? <Redirect to="/" />
+                  : <Register
+                      isLoading={isLoading}
+                      onSubmit={handleRegister}
+                    />
+                }
+              </Route>
+              <Route path="*">
+                <Redirect to="/" />
+              </Route>
+            </Switch>
+          </main>
           <Footer/>
         </div>
         

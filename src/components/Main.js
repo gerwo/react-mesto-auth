@@ -7,7 +7,7 @@ function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
   return (
-    <main className="main">
+    <>
       <section className="profile">
         <div className="profile__avatar-block">
           <img src={currentUser.avatar} className="profile__avatar" alt="Аватар"/>
@@ -44,7 +44,7 @@ function Main(props) {
             {...item}/>)}
         </ul>
       </section>
-    </main>
+    </>
   );
 }
 

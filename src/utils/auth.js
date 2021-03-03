@@ -26,3 +26,13 @@ export function login({email, password}){
       })
   }).then(result => getResponseData(result));
 }
+
+export function checkUserToken(jwt) {
+  return fetch(`${BASE_URL}/users/me`, {
+    headers: {
+      ...headers,
+      'Authorization' : `Bearer ${jwt}`
+    },
+  })
+    .then((res) => getResponseData(res))
+}
