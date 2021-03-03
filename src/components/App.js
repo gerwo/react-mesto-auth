@@ -169,6 +169,7 @@ function App() {
           <Header/>
           <Switch>
             <ProtectedRoute
+              exact
               path='/'
               isLoggedIn={isLoggedIn}
               component={Main}
@@ -184,9 +185,7 @@ function App() {
               {
                 isLoggedIn
                 ? <Redirect to="/" />
-                : <Login
-                    isLoading={isLoading}
-                    onSubmit={handleLogin}
+                : <Login isLoading={isLoading} onSubmit={handleLogin}
                   />
               }
             </Route>
