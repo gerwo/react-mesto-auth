@@ -1,5 +1,5 @@
-import React from 'react';
-import { Switch, Route, Redirect} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Switch, Route, Redirect, useHistory} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Header from "./Header";
 import Login from "./Login";
@@ -12,31 +12,38 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmPopup from './ConfirmPopup';
 import api from "../utils/api";
-import * as auth from "../utils/auth"
+import * as auth from "../utils/auth";
 import useEventListener from '@use-it/event-listener';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
-//import infoTooltipDoneImage from '../images/done-query.svg';
-//import infoTooltipErrorImage from '../images/error-query.svg';
+import infoTooltipDoneImage from '../images/done-query.svg';
+import infoTooltipErrorImage from '../images/error-query.svg';
+import InfoTooltip from "./InfoTooltip";
 
-function App() { 
+function App() {
 
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [isImagePopupOpen, setImagePopup] = React.useState(false);
-  const [isConfirmPopupOpen, setConfirmPopup] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [cards, setCards] = React.useState([]);
+  const history = useHistory();
 
-  const [isLoggedIn, setLoggedIn] = React.useState(false);
-  const [isLoading, setLoading] = React.useState(false);
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+  const [isImagePopupOpen, setImagePopup] = useState(false);
+  const [isConfirmPopupOpen, setConfirmPopup] = useState(false);
+  const [isInfoPopupOpen, setInfoPopupOpen] = useState(false)
 
-  const [isMessage, setMessage] = React.useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
+  const [cards, setCards] = useState([]);
+
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
+
+
+  const [isInfoTooltipData, setInfoTooltipData] = React.useState({message : '', image : ''});
 
   const [currentUser, setCurrentUser] = React.useState(CurrentUserContext);
 
-  React.useEffect( () => {
+  useEffect( () => {
     Promise.resolve(api.getUserInfo())
       .then((data) => {
         setCurrentUser(data);
@@ -50,12 +57,10 @@ function App() {
       email, password
     })
       .then((res) => {
-        setLoading(true)
+
         if(res.token){
-          localStorage.setItem({
-            token : res.token,
-            email : email
-          });
+          localStorage.setItem('email', email);
+          localStorage.setItem('token', res.token);
 
           setLoggedIn(true);
         }
@@ -69,20 +74,40 @@ function App() {
   }
 
   function handleRegister({email, password}){
+
     setLoading(true);
 
     auth.registration({
         email, password
       })
       .then((res) => {
-        console.log(res)
+        setInfoTooltipDone();
+        setInfoPopupOpen(true);
+
+        history.add('/sing-in')
       })
       .catch(() => {
-
+        setInfoTooltipError()
+        setInfoPopupOpen(true);
       })
       .finally(() => {
-
+        setLoading(false);
       })
+  }
+  
+  
+  function setInfoTooltipDone() {
+    setInfoTooltipData({
+      message : 'Вы успешно зарегистрировались!',
+      image : infoTooltipDoneImage
+    })
+  }
+
+  function setInfoTooltipError() {
+    setInfoTooltipData({
+      message : 'Что-то пошло не так! Попробуйте еще раз.',
+      image : infoTooltipErrorImage
+    })
   }
 
   function handleEditAvatarClick() {
@@ -275,9 +300,17 @@ function App() {
           isOpen={isConfirmPopupOpen} 
           onClose={closeAllPopups}
           onLayout={handleLayoutClick} 
-          onConfirm={handleCardDelete} 
-          isLoading={isLoading}/>
+          onConfirm={handleCardDelete}
+          handleLayoutClickisLoading={isLoading}/>
 
+        <InfoTooltip
+          name="info-tooltip"
+          isOpen={isInfoPopupOpen}
+          onClose={closeAllPopups}
+          onLayout={handleLayoutClick}
+          message={isInfoTooltipData.message}
+          image={isInfoTooltipData.image}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
