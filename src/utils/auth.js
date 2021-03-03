@@ -7,7 +7,7 @@ export const headers = {
   'Content-Type': 'application/json'
 };
 
-export function registration({ email, password }){
+export function register({ email, password }){
   return fetch(`${BASE_URL}/signup`, {
       method : 'POST',
       headers,

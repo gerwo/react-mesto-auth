@@ -39,7 +39,7 @@ function App() {
 
 
 
-  const [isInfoTooltipData, setInfoTooltipData] = React.useState({message : '', image : ''});
+  const [isInfoTooltipData, setInfoTooltipData] = useState({message : '', image : ''});
 
   const [currentUser, setCurrentUser] = React.useState(CurrentUserContext);
 
@@ -77,18 +77,18 @@ function App() {
 
     setLoading(true);
 
-    auth.registration({
+    auth.register({
         email, password
       })
       .then((res) => {
+        setInfoPopupOpen(true);
         setInfoTooltipDone();
-        setInfoPopupOpen(true);
 
-        history.add('/sing-in')
+        history.push('/sing-in')
       })
-      .catch(() => {
-        setInfoTooltipError()
+      .catch((err) => {
         setInfoPopupOpen(true);
+        setInfoTooltipError()
       })
       .finally(() => {
         setLoading(false);
@@ -100,7 +100,8 @@ function App() {
     setInfoTooltipData({
       message : 'Вы успешно зарегистрировались!',
       image : infoTooltipDoneImage
-    })
+    });
+    console.log(isInfoTooltipData);
   }
 
   function setInfoTooltipError() {
@@ -108,6 +109,8 @@ function App() {
       message : 'Что-то пошло не так! Попробуйте еще раз.',
       image : infoTooltipErrorImage
     })
+
+    console.log(isInfoTooltipData);
   }
 
   function handleEditAvatarClick() {
@@ -142,6 +145,7 @@ function App() {
 
   function handleLayoutClick(popup) {
     popup.addEventListener('mousedown', evt => {
+      debugger;
       evt.target === evt.currentTarget && closeAllPopups();
     });
   }
@@ -152,6 +156,7 @@ function App() {
     setEditAvatarPopupOpen(false);
     setImagePopup(false);
     setConfirmPopup(false);
+    setInfoPopupOpen(false);
 
     setTimeout(() => {
       setLoading(false);
