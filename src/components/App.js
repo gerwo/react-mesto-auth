@@ -50,13 +50,21 @@ function App() {
       email, password
     })
       .then((res) => {
-        console.log(res)
+        setLoading(true)
+        if(res.token){
+          localStorage.setItem({
+            token : res.token,
+            email : email
+          });
+
+          setLoggedIn(true);
+        }
       })
       .catch(() => {
-
+        setLoggedIn(false);
       })
       .finally(() => {
-
+        setLoading(false);
       })
   }
 

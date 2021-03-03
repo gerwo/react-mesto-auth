@@ -50,3 +50,9 @@
 @import url('./blocks/popup/__error/popup__error.css');
 @import url('./blocks/popup/__error/_visible/popup__error_visible.css');
 @import url('./blocks/popup/__input/_type/popup__input_type_error.css');
+@import url('./blocks/form/form.css');
+@import url('./blocks/form/__title/form__title.css');
+@import url('./blocks/form/__input/form__input.css');
+@import url('./blocks/form/__input/_type/form__input_type_email.css');
+@import url('./blocks/form/__input/_type/form__input_type_password.css');
+@import url('./blocks/form/__submit-button/form__submit-button.css');
