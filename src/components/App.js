@@ -11,7 +11,8 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmPopup from './ConfirmPopup';
-import api from "../utils/api.js";
+import api from "../utils/api";
+import auth from "../utils/auth"
 import useEventListener from '@use-it/event-listener';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
