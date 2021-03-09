@@ -12,7 +12,7 @@ function Main(props) {
     return () => {
       props.setHeaderNavLinkData('/', '');
     }
-  });
+  }, []);
 
   return (
     <>

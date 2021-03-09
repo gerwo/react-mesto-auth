@@ -10,7 +10,7 @@ function Register(props){
     return () => {
       props.setHeaderNavLinkData('/', '');
     }
-  }, [props]);
+  }, []);
 
   return (
     <div className="register">

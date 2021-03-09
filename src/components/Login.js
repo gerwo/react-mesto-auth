@@ -9,7 +9,7 @@ function Login(props) {
     return () => {
       props.setHeaderNavLinkData('/', '');
     }
-  }, [props]);
+  }, []);
 
   return (
     <div className="auth">

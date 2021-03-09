@@ -280,7 +280,7 @@ function App() {
                 exact
                 path='/'
                 isLoggedIn={isLoggedIn}
-                setHeaderNavLinkData = {setHeaderNavLinkData}
+                setHeaderNavLinkData = {setHeaderNavlinkData}
                 component={Main}
                 onEditProfile={handleEditProfileClick}
                 onEditAvatar={handleEditAvatarClick}
@@ -290,25 +290,25 @@ function App() {
                 onCardLike={handleCardLike}
                 cards={cards}
               />
-              <Route path="/sign-in">
+              <Route path="/signin">
                 {
                   isLoggedIn
                   ? <Redirect to="/" />
                   : <Login isLoading={isLoading}
                            onSubmit={handleLogin}
-                           setHeaderNavLinkData = {setHeaderNavLinkData}
+                           setHeaderNavLinkData = {setHeaderNavlinkData}
                     />
                 }
               </Route>
 
-              <Route path="/sign-up">
+              <Route path="/signup">
                 {
                   isLoggedIn
                   ? <Redirect to="/" />
                   : <Register
                       isLoading={isLoading}
                       onSubmit={handleRegister}
-                      setHeaderNavLinkData = {setHeaderNavLinkData}
+                      setHeaderNavLinkData = {setHeaderNavlinkData}
                     />
                 }
               </Route>
