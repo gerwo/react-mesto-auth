@@ -1,13 +1,21 @@
 
 import React from 'react';
 import logo from '../images/logo.svg';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function  Header(props) {
+
   return (
     <header className="header">
       <div className="header__menu">
+        <p className="header__user-login">{props.headerUserLogin}</p>
+        <NavLink
+            to={props.navlinkPath}
+            onClick={props.onSignOut}
+            className="header__link opacity">
 
+          {props.navlinkText}
+        </NavLink>
       </div>
       <img src={logo} className="logo" alt="Логотип Mesto"/>
     </header>

@@ -4,7 +4,7 @@ import Form from './Form';
 function Login(props) {
 
   useEffect(() => {
-    props.setHeaderNavLinkData('/sign-up', 'Регистрация');
+    props.setHeaderNavLinkData('/signup', 'Регистрация');
 
     return () => {
       props.setHeaderNavLinkData('/', '');
