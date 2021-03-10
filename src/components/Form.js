@@ -47,7 +47,7 @@ function Form(props) {
           maxLength="100"/>
         <span className="form__input-error" id="password-input-error" />
         
-        <button type="submit" className="">{props.isLoading ? props.loadingButtonTitle : props.buttonTitle}</button>
+        <button type="submit" className="button button_type_submit-form">{props.isLoading ? props.loadingButtonTitle : props.buttonTitle}</button>
       </form>
   )
 }

@@ -1,5 +1,6 @@
 
 import React, {useEffect} from 'react';
+import { NavLink } from 'react-router-dom';
 import Form from './Form';
 
 function Register(props){
@@ -22,6 +23,7 @@ function Register(props){
         loadingButtonTitle = "Регистрация..."
         buttonTitle = "Зарегистрироваться"
       />
+      <p className="auth__text">Уже зарегистрированы? <NavLink to="/signin" className="auth__link">Войти</NavLink></p>
     </div>
   );
 }
