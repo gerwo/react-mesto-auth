@@ -23,7 +23,7 @@ function Register(props){
         loadingButtonTitle = "Регистрация..."
         buttonTitle = "Зарегистрироваться"
       />
-      <p className="auth__text">Уже зарегистрированы? <NavLink to="/signin" className="auth__link">Войти</NavLink></p>
+      <p className="auth__text">Уже зарегистрированы? <NavLink to="/signin" className="auth__link opacity">Войти</NavLink></p>
     </div>
   );
 }

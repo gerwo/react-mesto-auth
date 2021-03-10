@@ -1,8 +1,8 @@
 .form__input{
-  color: #ccc;
+  color: #fff;
   font-family: "Inter", sans-serif;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 500;
   font-size: 14px;
   line-height: 17px;
   height: 27px;
@@ -11,13 +11,4 @@
   background-color: #000;
   padding-bottom: 13px;
   outline: none;
-}
-
-.form__input:last-child{
-  margin-top: 30px;
-}
-
-.form__input[type="email"]:focus{
-  background-color: #000;
-  color: #ccc;
 }
