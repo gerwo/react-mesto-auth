@@ -41,7 +41,7 @@ function App() {
   const [headerUserLogin, setHeaderUserLogin] = useState('');
 
   const [isNavLinkData, setNavLinkData] = useState({text: '', path: ''});
-  const [isInfoTooltipData, setInfoTooltipData] = useState({message : '', image : ''});
+  const [isInfoTooltip, setInfoTooltip] = useState({message : '', image : ''});
 
   const [currentUser, setCurrentUser] = React.useState(CurrentUserContext);
 
@@ -51,6 +51,7 @@ function App() {
   }
 
   function handleLogin({email, password}){
+
     setLoading(true);
 
     auth.login({
@@ -65,10 +66,19 @@ function App() {
           setHeaderUserLogin(email);
 
           setLoggedIn(true);
+
+          setInfoTooltip({
+            message : 'Вы успешно авторизовались!',
+            image : infoTooltipDoneImage
+          });
+
+          setInfoPopupOpen(true);
         }
       })
       .catch(() => {
         setLoggedIn(false);
+        setInfoTooltipError()
+        setInfoPopupOpen(true);
       })
       .finally(() => {
         setLoading(false);
@@ -83,14 +93,18 @@ function App() {
         email, password
       })
       .then((res) => {
-        setInfoPopupOpen(true);
-        setInfoTooltipDone();
 
-        history.push('/sing-in')
+        history.push('/singin');
+
+        setInfoTooltip({
+          message : 'Вы успешно зарегистрировались!',
+          image : infoTooltipDoneImage
+        });
+        setInfoPopupOpen(true);
       })
       .catch((err) => {
-        setInfoPopupOpen(true);
         setInfoTooltipError()
+        setInfoPopupOpen(true);
       })
       .finally(() => {
         setLoading(false);
@@ -102,23 +116,13 @@ function App() {
     setLoggedIn(false);
     setHeaderUserLogin('');
   }
-  
-  
-  function setInfoTooltipDone() {
-    setInfoTooltipData({
-      message : 'Вы успешно зарегистрировались!',
-      image : infoTooltipDoneImage
-    });
-    console.log(isInfoTooltipData);
-  }
+
 
   function setInfoTooltipError() {
-    setInfoTooltipData({
+    setInfoTooltip({
       message : 'Что-то пошло не так! Попробуйте еще раз.',
       image : infoTooltipErrorImage
     })
-
-    console.log(isInfoTooltipData);
   }
 
   function handleEditAvatarClick() {
@@ -359,8 +363,8 @@ function App() {
           isOpen={isInfoPopupOpen}
           onClose={closeAllPopups}
           onLayout={handleLayoutClick}
-          message={isInfoTooltipData.message}
-          image={isInfoTooltipData.image}
+          message={isInfoTooltip.message}
+          image={isInfoTooltip.image}
         />
       </div>
     </CurrentUserContext.Provider>

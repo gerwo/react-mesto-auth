@@ -1,11 +1,11 @@
 .header{
-    padding-top: 45px;
-    min-height: 74px;
+    min-height: 120px;
     border-bottom: 1px solid #545454;
     flex: 0 0 auto;
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+    align-items: center;
 }
 
 @media(max-width:920px) and (min-width:882px){
