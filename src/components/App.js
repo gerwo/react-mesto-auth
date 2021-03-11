@@ -184,7 +184,7 @@ function App() {
 
   useEffect(() => {
     checkTokenInStorage();
-    setHeaderUserLogin(localStorage.getItem('mail'))
+    setHeaderUserLogin(localStorage.getItem('email'));
   }, [])
 
   useEffect(() => {

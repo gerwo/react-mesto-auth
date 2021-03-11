@@ -4,7 +4,6 @@ import logo from '../images/logo.svg';
 import { NavLink } from 'react-router-dom';
 
 function  Header(props) {
-  console.log(props)
   return (
     <header className="header">
       <div className="header__menu">
