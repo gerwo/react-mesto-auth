@@ -1,19 +1,10 @@
-import React, {useEffect} from 'react';
-import Form from './Form';
+import AuthForm from './AuthForm';
 
 function Login(props) {
 
-  useEffect(() => {
-    props.setHeaderNavLinkData('/signup', 'Регистрация');
-
-    return () => {
-      props.setHeaderNavLinkData('/', '');
-    }
-  }, []);
-
   return (
     <div className="auth">
-      <Form
+      <AuthForm
         name="login"
         isLoading = {props.isLoading}
         onSubmit={props.onSubmit}

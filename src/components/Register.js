@@ -1,21 +1,11 @@
-
-import React, {useEffect} from 'react';
-import { NavLink } from 'react-router-dom';
-import Form from './Form';
+import { Link } from 'react-router-dom';
+import AuthForm from './AuthForm';
 
 function Register(props){
 
-  useEffect(() => {
-    props.setHeaderNavLinkData('/signin', 'Войти');
-
-    return () => {
-      props.setHeaderNavLinkData('/', '');
-    }
-  }, []);
-
   return (
     <div className="register">
-      <Form
+      <AuthForm
         name="registration"
         isLoading = {props.isLoading}
         onSubmit={props.onSubmit}
@@ -23,7 +13,7 @@ function Register(props){
         loadingButtonTitle = "Регистрация..."
         buttonTitle = "Зарегистрироваться"
       />
-      <p className="auth__text">Уже зарегистрированы? <NavLink to="/signin" className="auth__link opacity">Войти</NavLink></p>
+      <p className="auth__text">Уже зарегистрированы? <Link to="/signin" className="auth__link opacity">Войти</Link></p>
     </div>
   );
 }

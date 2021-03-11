@@ -1,18 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Card from "./Card";
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function Main(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
-
-  useEffect(() => {
-    props.setHeaderNavLinkData('/sign-in', 'Выйти');
-
-    return () => {
-      props.setHeaderNavLinkData('/', '');
-    }
-  }, []);
 
   return (
     <>

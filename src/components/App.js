@@ -40,15 +40,11 @@ function App() {
 
   const [headerUserLogin, setHeaderUserLogin] = useState('');
 
-  const [isNavLinkData, setNavLinkData] = useState({text: '', path: ''});
   const [isInfoTooltip, setInfoTooltip] = useState({message : '', image : ''});
 
   const [currentUser, setCurrentUser] = React.useState(CurrentUserContext);
 
 
-  function setHeaderNavlinkData(path, text) {
-    setNavLinkData({text, path});
-  }
 
   function handleLogin({email, password}){
 
@@ -60,7 +56,6 @@ function App() {
       .then((res) => {
 
         if(res.token){
-          localStorage.setItem('email', email);
           localStorage.setItem('token', res.token);
 
           setHeaderUserLogin(email);
@@ -175,26 +170,6 @@ function App() {
     }, 700)
   }
 
-  useEffect( () => {
-    Promise.resolve(api.getUserInfo())
-      .then((data) => {
-        setCurrentUser(data);
-      });
-  }, []);
-
-  useEffect(() => {
-    checkTokenInStorage();
-    setHeaderUserLogin(localStorage.getItem('email'));
-  }, [])
-
-  useEffect(() => {
-    api.getCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch(error => console.log(error));
-  }, []);
-  
   function handleAddPlaceSubmit({name, link}) {
     setLoading(true);
 
@@ -202,22 +177,7 @@ function App() {
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups()
-    }).catch(error => console.log(error));
-  }
-
-  function checkTokenInStorage(){
-
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
-
-      auth.checkUserToken(token)
-        .then(() => {
-          setLoggedIn(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+      }).catch(error => console.log(error));
   }
 
   function handleCardDelete() {
@@ -226,21 +186,21 @@ function App() {
     api.deleteCard({cardId : selectedCard._id})
       .then(() => {
         const newCards = cards.filter((c) => c._id !== selectedCard._id);
-        
+
         setCards(newCards);
         closeAllPopups();
         setSelectedCard({});
 
       }).catch(error => console.log(error));
   }
-  
-  function handleCardLike(card) {    
+
+  function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     api.changeLikeCardStatus({cardId : card._id, isLiked: !isLiked})
       .then((newCard) => {
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-        
+
         setCards(newCards);
       }).catch(error => console.log(error));
   }
@@ -257,13 +217,51 @@ function App() {
 
   function handleUpdateUser({name, about}){
     setLoading(true);
-    
+
     api.setUserInfo({name, about})
       .then((data) => {
         setCurrentUser(data);
         closeAllPopups();
       }).catch(error => console.log(error));
   }
+
+  function checkTokenInStorage(){
+
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+
+      auth.checkUserToken(token)
+        .then((data) => {
+          setLoggedIn(true);
+          setHeaderUserLogin(data.data.email);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
+  useEffect( () => {
+    Promise.resolve(api.getUserInfo())
+      .then((data) => {
+        setCurrentUser(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    api.getCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch(error => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    checkTokenInStorage();
+  }, [])
+
+
+
 
   useEventListener('keydown', handlePressEsc);
 
@@ -275,8 +273,6 @@ function App() {
             isLoggedIn={isLoggedIn}
             userLogin={headerUserLogin}
             onSignOut={handleSignOut}
-            navlinkText={isNavLinkData.text}
-            navlinkPath={isNavLinkData.path}
           />
           <main className="main">
             <Switch>
@@ -284,7 +280,6 @@ function App() {
                 exact
                 path='/'
                 isLoggedIn={isLoggedIn}
-                setHeaderNavLinkData = {setHeaderNavlinkData}
                 component={Main}
                 onEditProfile={handleEditProfileClick}
                 onEditAvatar={handleEditAvatarClick}
@@ -300,7 +295,6 @@ function App() {
                   ? <Redirect to="/" />
                   : <Login isLoading={isLoading}
                            onSubmit={handleLogin}
-                           setHeaderNavLinkData = {setHeaderNavlinkData}
                     />
                 }
               </Route>
@@ -312,7 +306,6 @@ function App() {
                   : <Register
                       isLoading={isLoading}
                       onSubmit={handleRegister}
-                      setHeaderNavLinkData = {setHeaderNavlinkData}
                     />
                 }
               </Route>
